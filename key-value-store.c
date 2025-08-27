@@ -8,12 +8,12 @@ void assert_equals_int(int expected, int actual) {
 		}
 }
 
-int kv_get(void *key, size_t len) {
-		return 1; // stub
+int kv_get(void *key, size_t len, void **value_out, size_t *value_len_out) {
+		return -1; // stub
 }
 
 int kv_set(void* key, size_t key_len, void* value, size_t value_len) {
-		return 1; // stub
+		return -1; // stub
 }
 
 int main(int argc, char *argv[]) {
@@ -22,9 +22,12 @@ int main(int argc, char *argv[]) {
 
 		kv_set(key, strlen(key), &value, sizeof(value));
 
-		int retrieve_value = kv_get(key, strlen(key));
+		void *retrieved;
+		size_t retrieved_len;
 
-		assert_equals_int(value, retrieve_value);
+		kv_get(key, strlen(key), &retrieved, &retrieved_len);
+
+		assert_equals_int(value, *(int *) retrieved);
 
 		return 0;
 }
