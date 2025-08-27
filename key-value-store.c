@@ -126,7 +126,7 @@ int main(int argc, char *argv[]) {
 
 	int value1 = 4;
 
-	kv_set(key, strlen(key), &value, sizeof(value));
+	kv_set(key, strlen(key), &value1, sizeof(value));
 
 	kv_get(key, strlen(key), &retrieved, &retrieved_len);
 
