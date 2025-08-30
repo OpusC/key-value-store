@@ -110,7 +110,10 @@ int kv_set(void* key, size_t key_len, void* value, size_t value_len) {
 
 int main(int argc, char *argv[]) {
 	char key[] = "test1";
+	char key1[] = "test2";
 	int value = 3;
+
+	int value2 = 7;
 
 
 	kv_set(key, strlen(key), &value, sizeof(value));
@@ -118,17 +121,25 @@ int main(int argc, char *argv[]) {
 	void *retrieved;
 	size_t retrieved_len;
 
+	kv_set(key1, strlen(key1), &value2, sizeof(value2));
+
 	kv_get(key, strlen(key), &retrieved, &retrieved_len);
 
 	assert_equals_int(value, *(int *) retrieved);
-
-	printf("key: %s value: %d retrieved value: %d\n", key, value, *(int *) retrieved);
 
 	int value1 = 4;
 
 	kv_set(key, strlen(key), &value1, sizeof(value));
 
 	kv_get(key, strlen(key), &retrieved, &retrieved_len);
+
+	void *retrieved1;
+	size_t retrieved1_len;
+	kv_get(key1, strlen(key1), &retrieved1, &retrieved1_len);
+
+	assert_equals_int(7, *(int *) retrieved1);
+
+
 
 	assert_equals_int(value1, *(int *) retrieved);
 
